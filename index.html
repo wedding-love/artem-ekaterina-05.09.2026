@@ -395,7 +395,7 @@
             transform: translateY(0);
         }
 
-        /* ----- ЛОКАЦИЯ (ОБНОВЛЕННАЯ) ----- */
+        /* ----- ЛОКАЦИЯ ----- */
         .location-section {
             padding: 80px 20px;
             background: #ffffff;
@@ -439,12 +439,13 @@
         }
 
         .location-content .location-name {
-            font-family: 'Lighthaus', 'Quicksand', sans-serif;
-            font-weight: 300;
-            font-size: 26px;
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2.4rem, 5vw, 3.2rem);
             color: #1a1a1a;
             margin-bottom: 12px;
             line-height: 1.2;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .location-content .location-desc {
@@ -500,7 +501,7 @@
                 font-size: 32px;
             }
             .location-content .location-name {
-                font-size: 22px;
+                font-size: 2rem;
             }
             .location-content .location-desc {
                 font-size: 0.9rem;
@@ -643,7 +644,7 @@
 
         .dresscode-grid .dress-photo {
             width: 100%;
-            aspect-ratio: 1 / 1.4;
+            aspect-ratio: 1 / 1.6;
             background-size: cover;
             background-position: center;
             background-color: #f4f4f4;
@@ -799,6 +800,14 @@
             color: #1a1a1a;
             text-align: center;
             margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.25,0.8,0.4,1), transform 1.2s cubic-bezier(0.25,0.8,0.4,1);
+        }
+
+        .rsvp-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .rsvp-deadline {
@@ -822,8 +831,8 @@
             transform: translateY(0);
         }
 
-        .rsvp-deadline strong {
-            font-weight: 600;
+        .rsvp-deadline span {
+            font-weight: 400;
             color: #1a1a1a;
         }
 
@@ -859,14 +868,6 @@
             letter-spacing: 1px;
             margin-bottom: 6px;
             color: #1a1a1a;
-        }
-        .form-group label .field-hint {
-            font-weight: 300;
-            text-transform: none;
-            font-size: 10px;
-            color: #999;
-            display: block;
-            margin-top: 2px;
         }
         .form-group input,
         .form-group select {
@@ -1098,7 +1099,7 @@
     </div>
 </div>
 
-<!-- ЛОКАЦИЯ (ОБНОВЛЕННАЯ) -->
+<!-- ЛОКАЦИЯ -->
 <section class="location-section" id="locationSection">
     <div class="location-container">
         <div class="location-content">
@@ -1183,10 +1184,10 @@
 <!-- АНКЕТА ГОСТЯ -->
 <div class="rsvp-screen" id="rsvpScreen">
     <div class="rsvp-container">
-        <h2 class="rsvp-title">Анкета гостя</h2>
+        <h2 class="rsvp-title" id="rsvpTitle">Анкета гостя</h2>
 
         <div class="rsvp-deadline" id="rsvpDeadline">
-            Просим вас окончательно подтвердить присутствие на свадьбе и заполнить анкету до <strong>10 августа</strong>, чтобы мы могли заранее подготовить комфортное размещение и меню.
+            Просим вас окончательно подтвердить присутствие на свадьбе и заполнить анкету до <span>10 августа</span>, чтобы мы могли заранее подготовить комфортное размещение и меню.
         </div>
 
         <form id="guestForm" action="https://formspree.io/f/xvzeddaz" method="POST">
@@ -1194,7 +1195,7 @@
             <div class="rsvp-grid">
 
                 <div class="form-group full-width" data-delay="0">
-                    <label>Ваше имя и фамилия <span class="field-hint">(для понимания, кто именно подтвердил присутствие)</span></label>
+                    <label>Ваше имя и фамилия</label>
                     <input type="text" name="Имя и фамилия" id="guestName" placeholder="Например, Анна Петрова" required>
                 </div>
 
@@ -1389,15 +1390,21 @@
         const rsvpScreen = document.getElementById('rsvpScreen');
         if (rsvpScreen) {
             const formGroups = document.querySelectorAll('.form-group');
+            const rsvpTitle = document.getElementById('rsvpTitle');
             const deadline = document.getElementById('rsvpDeadline');
             const submitBtn = document.getElementById('submitBtn');
 
             const rsvpObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Появление заголовка
+                        if (rsvpTitle) {
+                            setTimeout(() => rsvpTitle.classList.add('visible'), 100);
+                        }
+
                         // Появление дедлайна
                         if (deadline) {
-                            setTimeout(() => deadline.classList.add('visible'), 100);
+                            setTimeout(() => deadline.classList.add('visible'), 200);
                         }
 
                         // Появление групп формы с задержкой
@@ -1405,14 +1412,14 @@
                             const delay = parseInt(group.dataset.delay) || index * 100;
                             setTimeout(() => {
                                 group.classList.add('visible');
-                            }, 200 + delay);
+                            }, 300 + delay);
                         });
 
                         // Появление кнопки
                         if (submitBtn) {
                             setTimeout(() => {
                                 submitBtn.classList.add('visible');
-                            }, 200 + formGroups.length * 100 + 100);
+                            }, 300 + formGroups.length * 100 + 100);
                         }
 
                         rsvpObserver.disconnect();
