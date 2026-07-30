@@ -680,6 +680,13 @@
       font-style: italic; 
     }
 
+    /* Стиль для обязательных полей */
+    .form-group.required label::after {
+      content: ' *';
+      color: #c0392b;
+      font-weight: 700;
+    }
+
     .submit-btn {
       display: block;
       width: 100%;
@@ -877,35 +884,35 @@
     <form id="guestForm" action="https://formspree.io/f/xvzeddaz" method="POST">
       <input type="hidden" name="_subject" value="Новый ответ из анкеты гостя">
       <div class="rsvp-grid">
-        <div class="form-group full-width" data-delay="0">
+        <div class="form-group required full-width" data-delay="0">
           <label>Ваше имя и фамилия</label>
           <input type="text" name="Имя и фамилия" id="guestName" placeholder="Например, Анна Петрова" required>
         </div>
-        <div class="form-group full-width" data-delay="100">
+        <div class="form-group required full-width" data-delay="100">
           <label>Подтверждение присутствия</label>
           <div class="radio-group-horizontal">
             <label><input type="radio" name="Присутствие" value="Да, с радостью приду" required> Да, с радостью приду</label>
             <label><input type="radio" name="Присутствие" value="К сожалению, прийти не смогу"> К сожалению, прийти не смогу</label>
           </div>
         </div>
-        <div class="form-group full-width" data-delay="200">
+        <div class="form-group required full-width" data-delay="200">
           <label>Насколько легко вам соблюдать правила дресс-кода?</label>
           <div class="radio-group-horizontal">
-            <label><input type="radio" name="Дресс-код" value="Готов(а) соблюдать"> Готов(а) соблюдать</label>
+            <label><input type="radio" name="Дресс-код" value="Готов(а) соблюдать" required> Готов(а) соблюдать</label>
             <label><input type="radio" name="Дресс-код" value="Вызовет трудности"> Вызовет трудности</label>
           </div>
         </div>
-        <div class="form-group full-width" data-delay="300">
+        <div class="form-group required full-width" data-delay="300">
           <label>Предпочтения по напиткам</label>
           <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:#999;margin-bottom:5px;font-style:italic;">Пожалуйста, выберите, какие напитки вы предпочитаете (можно выбрать несколько вариантов, так как праздник включает несколько этапов: фуршет, банкет и продолжение программы)</p>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
-            <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
-            <label><input type="checkbox" name="Напитки" value="Красное вино"> Красное вино</label>
-            <label><input type="checkbox" name="Напитки" value="Виски"> Виски</label>
-            <label><input type="checkbox" name="Напитки" value="Водка"> Водка</label>
-            <label><input type="checkbox" name="Напитки" value="Не употребляю алкоголь"> Не употребляю алкоголь</label>
-            <label><input type="checkbox" id="drinkOtherCheck" name="Напитки" value="Другое"> Другое (укажите ваш вариант)</label>
+          <div class="checkbox-group required-checkbox">
+            <label><input type="checkbox" name="Напитки" value="Шампанское" required> Шампанское</label>
+            <label><input type="checkbox" name="Напитки" value="Белое вино" required> Белое вино</label>
+            <label><input type="checkbox" name="Напитки" value="Красное вино" required> Красное вино</label>
+            <label><input type="checkbox" name="Напитки" value="Виски" required> Виски</label>
+            <label><input type="checkbox" name="Напитки" value="Водка" required> Водка</label>
+            <label><input type="checkbox" name="Напитки" value="Не употребляю алкоголь" required> Не употребляю алкоголь</label>
+            <label><input type="checkbox" id="drinkOtherCheck" name="Напитки" value="Другое" required> Другое (укажите ваш вариант)</label>
           </div>
           <div class="other-drink-input" id="otherDrinkInput">
             <input type="text" name="Другое_напиток" placeholder="Напишите, что именно...">
@@ -913,25 +920,25 @@
         </div>
 
         <!-- ВЫБОР САЛАТА -->
-        <div class="form-group full-width" data-delay="400">
+        <div class="form-group required full-width" data-delay="400">
           <label>Ваш выбор салата</label>
           <div class="menu-radio-group">
             <label>
-              <input type="radio" name="Салат" value="Цезарь с курочкой">
+              <input type="radio" name="Салат" value="Цезарь с курочкой" required>
               <span>
                 <span class="menu-item-title">Салат «Цезарь»<br>с курочкой на гриле</span>
                 <span class="menu-item-desc">салат ромен, бекон, заправка Цезарь с анчоусами, пармезан, черри, яйцо перепелиное, крутоны</span>
               </span>
             </label>
             <label>
-              <input type="radio" name="Салат" value="Салат Усадьба с рваной говядиной">
+              <input type="radio" name="Салат" value="Салат Усадьба с рваной говядиной" required>
               <span>
                 <span class="menu-item-title">Салат «Усадьба»<br>с рваной говядиной</span>
                 <span class="menu-item-desc">рваная говядина, салат айсберг, томаты, обжаренная морковь, сладкий перец, красный лук, соус «Домашний майонез с соевой заправкой и кинзой»</span>
               </span>
             </label>
             <label>
-              <input type="radio" name="Салат" value="Оливье с языком">
+              <input type="radio" name="Салат" value="Оливье с языком" required>
               <span>
                 <span class="menu-item-title">Оливье с языком</span>
                 <span class="menu-item-desc">морковь, картофель, огурец соленый, капуста квашеная, горошек, яйцо отварное, майонез, язык</span>
@@ -941,24 +948,24 @@
         </div>
 
         <!-- ВЫБОР ГОРЯЧЕГО БЛЮДА -->
-        <div class="form-group full-width" data-delay="500">
+        <div class="form-group required full-width" data-delay="500">
           <label>Ваш выбор основного блюда</label>
           <div class="menu-radio-group">
             <label>
-              <input type="radio" name="Горячее" value="Стейк из лосося с овощами-гриль">
+              <input type="radio" name="Горячее" value="Стейк из лосося с овощами-гриль" required>
               <span>
                 <span class="menu-item-title">Стейк из лосося<br>с овощами-гриль</span>
               </span>
             </label>
             <label>
-              <input type="radio" name="Горячее" value="Говяжьи щёки">
+              <input type="radio" name="Горячее" value="Говяжьи щёки" required>
               <span>
                 <span class="menu-item-title">Говяжьи щёки</span>
                 <span class="menu-item-desc">томлёные в вине, подаются с овощной капонатой</span>
               </span>
             </label>
             <label>
-              <input type="radio" name="Горячее" value="Эскалопы из индейки">
+              <input type="radio" name="Горячее" value="Эскалопы из индейки" required>
               <span>
                 <span class="menu-item-title">Эскалопы из индейки</span>
                 <span class="menu-item-desc">подаются с картофелем по-деревенски и овощным соте<br>с сырным соусом</span>
@@ -1192,11 +1199,25 @@
     if (form) {
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // Проверка выбора напитков (хотя бы один чекбокс)
+        const drinkCheckboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        let drinkSelected = false;
+        drinkCheckboxes.forEach(cb => {
+          if (cb.checked) drinkSelected = true;
+        });
+        
+        if (!drinkSelected) {
+          alert('Пожалуйста, выберите хотя бы один вариант напитков');
+          return;
+        }
+        
         const nameInput = document.getElementById('guestName');
         if (nameInput && !nameInput.value.trim()) {
           alert('Пожалуйста, укажите ваше имя и фамилию');
           return;
         }
+        
         const formData = new FormData(form);
         try {
           const response = await fetch(form.action, {
