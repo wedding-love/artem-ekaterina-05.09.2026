@@ -950,35 +950,35 @@
     <form id="guestForm" action="https://formspree.io/f/xvzeddaz" method="POST">
       <input type="hidden" name="_subject" value="Новый ответ из анкеты гостя">
       <div class="rsvp-grid">
-        <div class="form-group required full-width" data-delay="0">
+        <div class="form-group full-width" data-delay="0">
           <label>Ваше имя и фамилия</label>
           <input type="text" name="Имя и фамилия" id="guestName" placeholder="Например, Анна Петрова" required>
         </div>
-        <div class="form-group required full-width" data-delay="100">
+        <div class="form-group full-width" data-delay="100">
           <label>Подтверждение присутствия</label>
           <div class="radio-group-horizontal">
             <label><input type="radio" name="Присутствие" value="Да, с радостью приду" required> Да, с радостью приду</label>
             <label><input type="radio" name="Присутствие" value="К сожалению, прийти не смогу"> К сожалению, прийти не смогу</label>
           </div>
         </div>
-        <div class="form-group required full-width" data-delay="200">
+        <div class="form-group full-width" data-delay="200">
           <label>Насколько легко вам соблюдать правила дресс-кода?</label>
           <div class="radio-group-horizontal">
             <label><input type="radio" name="Дресс-код" value="Готов(а) соблюдать" required> Готов(а) соблюдать</label>
             <label><input type="radio" name="Дресс-код" value="Вызовет трудности"> Вызовет трудности</label>
           </div>
         </div>
-        <div class="form-group required full-width" data-delay="300">
+        <div class="form-group full-width" data-delay="300">
           <label>Предпочтения по напиткам</label>
           <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:#999;margin-bottom:5px;font-style:italic;">Пожалуйста, выберите, какие напитки вы предпочитаете (можно выбрать несколько вариантов, так как праздник включает несколько этапов: фуршет, банкет и продолжение программы)</p>
           <div class="checkbox-group">
-            <label><input type="checkbox" name="Напитки" value="Шампанское" required> Шампанское</label>
-            <label><input type="checkbox" name="Напитки" value="Белое вино" required> Белое вино</label>
-            <label><input type="checkbox" name="Напитки" value="Красное вино" required> Красное вино</label>
-            <label><input type="checkbox" name="Напитки" value="Виски" required> Виски</label>
-            <label><input type="checkbox" name="Напитки" value="Водка" required> Водка</label>
-            <label><input type="checkbox" name="Напитки" value="Не употребляю алкоголь" required> Не употребляю алкоголь</label>
-            <label><input type="checkbox" id="drinkOtherCheck" name="Напитки" value="Другое" required> Другое (укажите ваш вариант)</label>
+            <label><input type="checkbox" name="Напитки" value="Шампанское"> Шампанское</label>
+            <label><input type="checkbox" name="Напитки" value="Белое вино"> Белое вино</label>
+            <label><input type="checkbox" name="Напитки" value="Красное вино"> Красное вино</label>
+            <label><input type="checkbox" name="Напитки" value="Виски"> Виски</label>
+            <label><input type="checkbox" name="Напитки" value="Водка"> Водка</label>
+            <label><input type="checkbox" name="Напитки" value="Не употребляю алкоголь"> Не употребляю алкоголь</label>
+            <label><input type="checkbox" id="drinkOtherCheck" name="Напитки" value="Другое"> Другое (укажите ваш вариант)</label>
           </div>
           <div class="other-drink-input" id="otherDrinkInput">
             <input type="text" name="Другое_напиток" placeholder="Напишите, что именно...">
@@ -986,7 +986,7 @@
         </div>
 
         <!-- ВЫБОР САЛАТА -->
-        <div class="form-group required full-width" data-delay="400">
+        <div class="form-group full-width" data-delay="400">
           <label>Ваш выбор салата</label>
           <div class="menu-radio-group">
             <label>
@@ -1014,7 +1014,7 @@
         </div>
 
         <!-- ВЫБОР ГОРЯЧЕГО БЛЮДА -->
-        <div class="form-group required full-width" data-delay="500">
+        <div class="form-group full-width" data-delay="500">
           <label>Ваш выбор основного блюда</label>
           <div class="menu-radio-group">
             <label>
@@ -1287,12 +1287,10 @@
     if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
     if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', closeModal);
 
-    // Закрытие по клику на фон
     modal.addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
 
-    // Закрытие по ESC
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
@@ -1303,21 +1301,39 @@
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Проверка выбора напитков (хотя бы один чекбокс)
+        // Проверка что имя заполнено
+        const nameInput = document.getElementById('guestName');
+        if (!nameInput.value.trim()) {
+          alert('Пожалуйста, укажите ваше имя и фамилию');
+          return;
+        }
+        
+        // Проверка что выбран хотя бы один напиток
         const drinkCheckboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
         let drinkSelected = false;
         drinkCheckboxes.forEach(cb => {
           if (cb.checked) drinkSelected = true;
         });
-        
         if (!drinkSelected) {
           alert('Пожалуйста, выберите хотя бы один вариант напитков');
           return;
         }
         
-        const nameInput = document.getElementById('guestName');
-        if (nameInput && !nameInput.value.trim()) {
-          alert('Пожалуйста, укажите ваше имя и фамилию');
+        // Проверка что выбран салат
+        const saladRadios = document.querySelectorAll('input[name="Салат"]');
+        let saladSelected = false;
+        saladRadios.forEach(r => { if (r.checked) saladSelected = true; });
+        if (!saladSelected) {
+          alert('Пожалуйста, выберите салат');
+          return;
+        }
+        
+        // Проверка что выбрано горячее
+        const mainRadios = document.querySelectorAll('input[name="Горячее"]');
+        let mainSelected = false;
+        mainRadios.forEach(r => { if (r.checked) mainSelected = true; });
+        if (!mainSelected) {
+          alert('Пожалуйста, выберите основное блюдо');
           return;
         }
         
@@ -1339,7 +1355,6 @@
               const otherTextInput = otherInputEl.querySelector('input');
               if (otherTextInput) otherTextInput.value = '';
             }
-            // Показываем модальное окно вместо обычного сообщения
             openModal();
           } else {
             alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
