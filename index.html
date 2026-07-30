@@ -42,7 +42,7 @@
       background-size: cover;
       background-position: center 30%;
       opacity: 0;
-      filter: brightness(0.6) contrast(1.1);
+      filter: brightness(0.75) contrast(1.05);
       transition: opacity 3.5s ease-out;
       z-index: 1;
     }
@@ -51,7 +51,7 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 100%);
+      background: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
       z-index: 2;
       pointer-events: none;
     }
@@ -179,7 +179,7 @@
     .description-text {
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
-      line-height: 1.6;
+      line-height: 1.8;
       color: #555;
       font-weight: 300;
       letter-spacing: 0.5px;
@@ -438,6 +438,9 @@
     .gents-grid .dress-photo:nth-child(1) { background-image: url('7 - Милана.png'); }
     .gents-grid .dress-photo:nth-child(2) { background-image: url('8 - Милана.png'); }
     .gents-grid .dress-photo:nth-child(3) { background-image: url('9 - Милана.jpeg'); }
+    .ladies-grid-additional .dress-photo:nth-child(1) { background-image: url('черный1.png'); }
+    .ladies-grid-additional .dress-photo:nth-child(2) { background-image: url('черный2.png'); }
+    .ladies-grid-additional .dress-photo:nth-child(3) { background-image: url('черный3.png'); }
 
     /* ----- ПОЖЕЛАНИЯ ----- */
     .wishes-screen { background: #ffffff; padding: 45px 20px 50px; }
@@ -528,7 +531,7 @@
     }
     .rsvp-deadline.visible { opacity: 1; transform: translateY(0); }
     .rsvp-deadline span { font-weight: 400; color: #1a1a1a; }
-    .rsvp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 25px; align-items: start; }
+    .rsvp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 30px; align-items: start; }
     .rsvp-grid .full-width { grid-column: 1 / -1; }
     .form-group {
       margin-bottom: 0;
@@ -546,29 +549,34 @@
     .radio-group-horizontal label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; margin-bottom: 0; cursor: pointer; }
     .radio-group-horizontal input { width: auto; accent-color: #1a1a1a; }
 
+    /* Блочное оформление меню */
     .menu-radio-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       margin-top: 4px;
     }
     .menu-radio-group label {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
       font-weight: 400;
       text-transform: none;
       font-size: 14px;
       line-height: 1.4;
       margin-bottom: 0;
       cursor: pointer;
-      padding: 6px 0;
-      border-bottom: 1px solid #f0f0f0;
-      transition: border-color 0.2s ease;
+      padding: 12px 14px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      background: #fafafa;
       width: 100%;
     }
     .menu-radio-group label:hover {
-      border-bottom-color: #ccc;
+      border-color: #bbb;
+      background: #f5f5f5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .menu-radio-group label input[type="radio"] {
       width: 16px;
@@ -581,13 +589,14 @@
     .menu-radio-group .menu-item-title {
       font-weight: 500;
       color: #1a1a1a;
+      line-height: 1.3;
     }
     .menu-radio-group .menu-item-desc {
       font-weight: 300;
       color: #888;
       font-size: 12px;
       display: block;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     .checkbox-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
@@ -612,7 +621,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
-      margin-top: 25px;
+      margin-top: 30px;
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s cubic-bezier(0.25,0.8,0.4,1), transform 0.8s cubic-bezier(0.25,0.8,0.4,1), background 0.3s ease;
@@ -633,7 +642,7 @@
     }
     .success-message.show { display: block; }
 
-    @media (max-width: 600px) { .rsvp-grid { grid-template-columns: 1fr; gap: 16px; } .rsvp-container { padding: 25px 18px; } }
+    @media (max-width: 600px) { .rsvp-grid { grid-template-columns: 1fr; gap: 20px; } .rsvp-container { padding: 25px 18px; } }
     @media (max-width: 580px) { .dresscode-grid { gap: 8px; max-width: 320px; } .dresscode-grid .dress-photo { border-radius: 8px; } }
     
     @media (max-width: 768px) {
@@ -679,7 +688,7 @@
   <div class="invitation-container">
     <div class="invitation-greeting" id="invitationGreeting">Дорогие гости!</div>
     <div class="save-the-date">Save the date!</div>
-    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу. Мы будем счастливы видеть вас рядом в этот особенный вечер и вместе создать воспоминания, к которым захочется возвращаться.</p>
+    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу.<br>Мы будем счастливы видеть вас рядом в этот особенный вечер и вместе создать воспоминания, к которым захочется возвращаться.</p>
     <div class="line line-top"></div>
     <div class="date-block">
       <span class="date-number from-left-1">05</span><span class="dot">.</span><span class="date-number from-right">09</span><span class="dot">.</span><span class="date-number from-left-2">2026</span>
@@ -736,12 +745,18 @@
   <div class="dresscode-container">
     <h1 class="dresscode-main-title" id="dresscodeMainTitle">Дресс-код</h1>
     <p class="dresscode-description" id="dresscodeDescription">Мы будем очень благодарны, если вы поддержите концепцию нашей свадьбы и дресс-кода Black & White.<br><br>
-      Для девушек: чёрное платье (белый цвет просим оставить только для невесты).<br><br>
+      Для девушек: чёрное платье или сочетание чёрного и белого в образе (белый верх — чёрный низ или наоборот). Если вы выбираете платье, просим, чтобы оно было чёрным — белый цвет оставим только для невесты.<br><br>
       Для мужчин: чёрный костюм и белая рубашка или чёрные/белые брюки с черной/белой рубашкой (без пиджака).<br><br>
       Ниже мы подготовили референсы, которые помогут с выбором образа.</p>
 
     <div class="section-subtitle animate-left" id="ladiesSubtitle">Ladies</div>
     <div class="dresscode-grid ladies-grid">
+      <div class="dress-photo"></div>
+      <div class="dress-photo"></div>
+      <div class="dress-photo"></div>
+    </div>
+
+    <div class="dresscode-grid ladies-grid-additional">
       <div class="dress-photo"></div>
       <div class="dress-photo"></div>
       <div class="dress-photo"></div>
@@ -830,14 +845,14 @@
             <label>
               <input type="radio" name="Салат" value="Цезарь с курочкой">
               <span>
-                <span class="menu-item-title">Салат «Цезарь» с курочкой на гриле</span>
+                <span class="menu-item-title">Салат «Цезарь»<br>с курочкой на гриле</span>
                 <span class="menu-item-desc">салат ромен, бекон, заправка Цезарь с анчоусами, пармезан, черри, яйцо перепелиное, крутоны</span>
               </span>
             </label>
             <label>
               <input type="radio" name="Салат" value="Салат Усадьба с рваной говядиной">
               <span>
-                <span class="menu-item-title">Салат «Усадьба» с рваной говядиной</span>
+                <span class="menu-item-title">Салат «Усадьба»<br>с рваной говядиной</span>
                 <span class="menu-item-desc">рваная говядина, салат айсберг, томаты, обжаренная морковь, сладкий перец, красный лук, соус «Домашний майонез с соевой заправкой и кинзой»</span>
               </span>
             </label>
@@ -858,20 +873,20 @@
             <label>
               <input type="radio" name="Горячее" value="Стейк из лосося с овощами-гриль">
               <span>
-                <span class="menu-item-title">Стейк из лосося с овощами-гриль</span>
+                <span class="menu-item-title">Стейк из лосося<br>с овощами-гриль</span>
               </span>
             </label>
             <label>
               <input type="radio" name="Горячее" value="Говяжьи щёки с овощной капонатой">
               <span>
-                <span class="menu-item-title">Говяжьи щёки с овощной капонатой</span>
+                <span class="menu-item-title">Говяжьи щёки<br>с овощной капонатой</span>
                 <span class="menu-item-desc">подаются с овощной капонатой</span>
               </span>
             </label>
             <label>
               <input type="radio" name="Горячее" value="Эскалопы из индейки с картофелем и овощами">
               <span>
-                <span class="menu-item-title">Эскалопы из индейки с картофелем и овощами</span>
+                <span class="menu-item-title">Эскалопы из индейки<br>с картофелем и овощами</span>
                 <span class="menu-item-desc">подаются с картофелем по-деревенски, овощным соте и сырным соусом</span>
               </span>
             </label>
