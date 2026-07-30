@@ -1053,7 +1053,8 @@
       
       const drObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && !photosAnimated) {
+          // Фото появляются только когда блок виден на 70% и больше
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.7 && !photosAnimated) {
             photosAnimated = true;
             
             document.getElementById('dresscodeMainTitle')?.classList.add('visible');
@@ -1077,7 +1078,9 @@
             drObs.disconnect();
           }
         });
-      }, { threshold: 0.2 });
+      }, { 
+        threshold: [0.7] // Срабатывает когда 70% блока видимо
+      });
       
       drObs.observe(dressScreen);
     }
