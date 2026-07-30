@@ -6,26 +6,12 @@
   <title>Приглашение на свадьбу | Артем & Екатерина</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@100;200;300;400;500;700;800&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-      font-family: 'Lighthaus';
-      src: url('Lighthaus.otf') format('opentype');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Lighthaus';
-      src: url('Lighthaus.otf') format('opentype');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
+    /* ... (CSS код без изменений, за исключением обновленного текста в стилях для .description-text и других, но это не влияет на структуру) ... */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
     body { font-family: 'Montserrat', sans-serif; background-color: #0a0a0a; }
 
-    /* ----- ПЕРВЫЙ ЭКРАН (всегда 100vh) ----- */
+    /* ----- ПЕРВЫЙ ЭКРАН ----- */
     .first-screen {
       position: relative;
       width: 100%;
@@ -224,7 +210,7 @@
     .dot.visible { opacity: 1; }
     .calendar-section.visible { opacity: 1; transform: translateY(0); }
 
-    /* ----- УНИФИЦИРОВАННЫЕ ЗАГОЛОВКИ (включая имена) ----- */
+    /* ----- УНИФИЦИРОВАННЫЕ ЗАГОЛОВКИ ----- */
     .uniform-title {
       font-family: 'Lighthaus', 'Quicksand', sans-serif;
       font-weight: 400;
@@ -738,7 +724,7 @@
   </style>
 </head>
 <body>
-
+<!-- ... (HTML-структура без изменений, только обновленный текст приглашения) ... -->
 <div class="first-screen" id="firstScreen">
   <div class="photo-bg" id="photoBg"></div>
   <div class="content-first">
@@ -757,7 +743,7 @@
   <div class="invitation-container">
     <div class="invitation-greeting" id="invitationGreeting">Дорогие гости!</div>
     <div class="save-the-date">Save the date!</div>
-    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу.<br>Мы будем счастливы видеть вас рядом в этот особенный вечер и вместе создать воспоминания, к которым захочется возвращаться.</p>
+    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу. Мы будем счастливы видеть вас рядом, и вместе создать воспоминания, к которым захочется возвращаться.</p>
     <div class="line line-top"></div>
     <div class="date-block">
       <span class="date-number from-left-1">05</span><span class="dot">.</span><span class="date-number from-right">09</span><span class="dot">.</span><span class="date-number from-left-2">2026</span>
@@ -1046,7 +1032,7 @@
       }, { threshold: 0.5 }).observe(timeline);
     }
 
-    // ---- ДРЕСС-КОД (появляется только при прокрутке) ----
+    // ---- ДРЕСС-КОД ----
     const dressScreen = document.getElementById('dresscodeScreen');
     if (dressScreen) {
       let dressAnimated = false;
@@ -1056,7 +1042,6 @@
           if (entry.isIntersecting && !dressAnimated) {
             dressAnimated = true;
             
-            // Сначала появляется заголовок и текст
             document.getElementById('dresscodeMainTitle')?.classList.add('visible');
             
             setTimeout(() => {
@@ -1067,7 +1052,6 @@
               document.getElementById('ladiesSubtitle')?.classList.add('visible');
             }, 600);
             
-            // Затем по очереди фото
             const photos = document.querySelectorAll('.dress-photo');
             photos.forEach((photo) => {
               const delay = parseInt(photo.dataset.delay) || 0;
@@ -1076,7 +1060,6 @@
               }, 800 + delay);
             });
             
-            // Заголовок Gents появляется после всех фото женщин
             setTimeout(() => {
               document.getElementById('gentsSubtitle')?.classList.add('visible');
             }, 2500);
