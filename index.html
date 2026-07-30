@@ -420,10 +420,13 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       opacity: 0;
-      transform: scale(0.96);
-      transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1);
+      transform: scale(0.96) translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.4, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.4, 1);
     }
-    .dresscode-grid .dress-photo.visible-card { opacity: 1; transform: scale(1); }
+    .dresscode-grid .dress-photo.visible-card { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
     .ladies-grid .dress-photo:nth-child(1) { background-image: url('4 - Милана.png'); }
     .ladies-grid .dress-photo:nth-child(2) { background-image: url('5 - Милана.png'); }
     .ladies-grid .dress-photo:nth-child(3) { background-image: url('6 - Милана.png'); }
@@ -817,22 +820,22 @@
 
     <div class="section-subtitle animate-left" id="ladiesSubtitle">Ladies</div>
     <div class="dresscode-grid ladies-grid">
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
+      <div class="dress-photo" data-delay="0"></div>
+      <div class="dress-photo" data-delay="200"></div>
+      <div class="dress-photo" data-delay="400"></div>
     </div>
 
     <div class="dresscode-grid ladies-grid-additional">
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
+      <div class="dress-photo" data-delay="600"></div>
+      <div class="dress-photo" data-delay="800"></div>
+      <div class="dress-photo" data-delay="1000"></div>
     </div>
 
     <div class="section-subtitle animate-right" id="gentsSubtitle">Gents</div>
     <div class="dresscode-grid gents-grid">
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
-      <div class="dress-photo"></div>
+      <div class="dress-photo" data-delay="1200"></div>
+      <div class="dress-photo" data-delay="1400"></div>
+      <div class="dress-photo" data-delay="1600"></div>
     </div>
   </div>
 </div>
@@ -1043,7 +1046,7 @@
       }, { threshold: 0.5 }).observe(timeline);
     }
 
-    // ---- ДРЕСС-КОД ----
+    // ---- ДРЕСС-КОД (последовательная анимация фото) ----
     const dressScreen = document.getElementById('dresscodeScreen');
     if (dressScreen) {
       const drObs = new IntersectionObserver((e) => {
@@ -1052,25 +1055,27 @@
             document.getElementById('dresscodeMainTitle')?.classList.add('visible');
             document.getElementById('dresscodeDescription')?.classList.add('visible');
             document.getElementById('ladiesSubtitle')?.classList.add('visible');
-            document.getElementById('gentsSubtitle')?.classList.add('visible');
+            
+            // Анимируем фото последовательно по data-delay
+            const photos = document.querySelectorAll('.dress-photo');
+            photos.forEach((photo) => {
+              const delay = parseInt(photo.dataset.delay) || 0;
+              setTimeout(() => {
+                photo.classList.add('visible-card');
+              }, delay);
+            });
+            
+            // Заголовок Gents появляется после всех фото женщин
+            setTimeout(() => {
+              document.getElementById('gentsSubtitle')?.classList.add('visible');
+            }, 1700);
+            
             drObs.disconnect();
           }
         });
       }, { threshold: 0.3 });
       drObs.observe(dressScreen);
     }
-
-    document.querySelectorAll('.dress-photo').forEach((card, i) => {
-      const cardObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('visible-card'), i * 100);
-            cardObs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.3 });
-      cardObs.observe(card);
-    });
 
     // ---- ПОЖЕЛАНИЯ ----
     const wishesContainer = document.querySelector('.wishes-container');
