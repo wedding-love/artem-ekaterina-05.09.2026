@@ -82,7 +82,7 @@
     .name-line {
       font-family: 'Lighthaus', 'Quicksand', sans-serif;
       font-weight: 400;
-      font-size: clamp(2rem, 5.5vw, 3.2rem); /* ЕДИНЫЙ РАЗМЕР СО ВСЕМИ ЗАГОЛОВКАМИ */
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
       letter-spacing: 5px;
       text-transform: uppercase;
       color: #fffcf5;
@@ -276,7 +276,7 @@
       transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
     }
     .location-image-wrapper.visible { opacity: 1; transform: scale(1); }
-    .location-image-wrapper img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; transition: transform 0.7s ease; }
+    .location-image-wrapper img { width: 100%; height: auto; display: block; transition: transform 0.7s ease; }
     .location-content .location-name {
       font-family: 'Pinyon Script', cursive;
       font-size: clamp(2rem, 5vw, 3.2rem);
@@ -506,7 +506,7 @@
       transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1);
     }
     .couple-photo-container.visible { opacity: 1; transform: translateY(0); }
-    .couple-photo { width: 100%; aspect-ratio: 3 / 2; background-image: url('3.png'); background-size: cover; background-position: center; background-color: #f5f5f5; border-radius: 20px; }
+    .couple-photo { width: 100%; aspect-ratio: 3 / 2; background-image: url('10.png'); background-size: cover; background-position: center; background-color: #f5f5f5; border-radius: 20px; }
 
     /* ----- АНКЕТА ГОСТЯ ----- */
     .rsvp-screen { background: #ffffff; padding: 45px 20px 50px; }
@@ -566,6 +566,54 @@
     .other-drink-input input { width: 100%; padding: 6px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 14px; background: transparent; outline: none; color: #1a1a1a; }
     .other-drink-input input:focus { border-bottom-color: #1a1a1a; }
     .drinks-hint { font-family: 'Montserrat', sans-serif; font-size: 10px; color: #999; margin-top: 4px; font-style: italic; }
+
+    /* Стили для радио-кнопок выбора блюд с описанием */
+    .menu-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .menu-radio-group label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 400;
+      text-transform: none;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 0;
+      cursor: pointer;
+      padding: 8px 12px;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      background: #fafafa;
+    }
+    .menu-radio-group label:hover {
+      border-color: #bbb;
+      background: #f5f5f5;
+    }
+    .menu-radio-group label input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      accent-color: #1a1a1a;
+      cursor: pointer;
+    }
+    .menu-radio-group .menu-item-title {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .menu-radio-group .menu-item-desc {
+      font-weight: 300;
+      color: #777;
+      font-size: 12px;
+      display: block;
+      margin-top: 2px;
+    }
+
     .submit-btn {
       display: block;
       width: 100%;
@@ -603,8 +651,6 @@
     @media (max-width: 600px) { .rsvp-grid { grid-template-columns: 1fr; gap: 16px; } .rsvp-container { padding: 25px 18px; } }
     @media (max-width: 580px) { .dresscode-grid { gap: 8px; max-width: 320px; } .dresscode-grid .dress-photo { border-radius: 8px; } }
     
-    /* УДАЛЕНЫ ОТДЕЛЬНЫЕ МЕДИА-ЗАПРОСЫ ДЛЯ .name-line — теперь имена используют тот же размер, что и заголовки */
-    /* Оставляем только адаптацию для отступов и расположения */
     @media (max-width: 768px) {
       .ampersand-between { font-size: clamp(2.8rem, 7vw, 4.5rem); margin-left: 15px; margin-top: -10px; margin-bottom: -6px; }
       .ekaterina-name { margin-left: 90px; margin-top: -5px; }
@@ -646,9 +692,9 @@
 
 <div class="second-screen" id="secondScreen">
   <div class="invitation-container">
-    <div class="invitation-greeting" id="invitationGreeting">Наши дорогие гости!</div>
+    <div class="invitation-greeting" id="invitationGreeting">Дорогие гости!</div>
     <div class="save-the-date">Save the date!</div>
-    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу в атмосфере «Грозового перевала». Мы будем счастливы видеть вас рядом в этот особенный вечер и вместе создать воспоминания, к которым захочется возвращаться.</p>
+    <p class="description-text">Мы приглашаем вас разделить с нами самый важный день — нашу свадьбу. Мы будем счастливы видеть вас рядом в этот особенный вечер и вместе создать воспоминания, к которым захочется возвращаться.</p>
     <div class="line line-top"></div>
     <div class="date-block">
       <span class="date-number from-left-1">05</span><span class="dot">.</span><span class="date-number from-right">09</span><span class="dot">.</span><span class="date-number from-left-2">2026</span>
@@ -678,7 +724,7 @@
         <img src="2.png" alt="Усадьба Ваньковичей" loading="lazy">
       </div>
       <div class="location-name" id="locName">Усадьба Ваньковичей</div>
-      <p class="location-desc" id="locDesc">Уютный парк, старинные стены и атмосфера спокойствия — здесь мы встретим наш «Грозовой перевал» в кругу самых близких.</p>
+      <p class="location-desc" id="locDesc">Здесь мы встретим наш праздник в кругу самых близких.</p>
       <p class="location-address" id="locAddr">г. Минск, ул. Филимонова, 24</p>
       <p class="location-note" id="locNote">Вход для гостей — со стороны парковки</p>
       <a href="https://yandex.by/maps/org/usadba_vankovichey_xix_vek/235478525131/?ll=27.638718%2C53.919665&z=15" target="_blank" class="btn-maps-new" id="locBtn">Открыть карту →</a>
@@ -732,7 +778,7 @@
     <h2 class="wishes-main-title anim-slide-up">Пожелания</h2>
     <div class="wishes-handwritten-subtitle anim-slide-up">Our wishes</div>
     <div class="wishes-single-text anim-slide-up">
-      Не ломайте голову над выбором подарка — всё необходимое у нас уже есть. Самым приятным подарком для нас станет конверт с вашим вкладом в наше будущее и добрыми пожеланиями.
+      Не ломайте голову над выбором подарка — всё необходимое у нас уже есть. Самым приятным подарком для нас станет конверт с вашим вкладом в наше будущее и добрыми пожеланиями. И пусть удача тоже станет гостем нашего праздника — положите, пожалуйста, в конверт один лотерейный билет на ваш выбор.
     </div>
     <div class="wishes-vertical-divider anim-fade-in"></div>
     <div class="pre-closing anim-slide-up">До скорой встречи!<br>С любовью</div>
@@ -792,24 +838,62 @@
             <input type="text" name="Другое_напиток" placeholder="Напишите, что именно...">
           </div>
         </div>
+
+        <!-- ВЫБОР САЛАТА с радиокнопками и описанием -->
         <div class="form-group full-width" data-delay="400">
-          <label>Выбор салата</label>
-          <select name="Салат">
-            <option value="">Выберите салат</option>
-            <option value="Цезарь с курочкой">Салат «Цезарь» с курочкой на гриле</option>
-            <option value="Усадьба">Салат «Усадьба»</option>
-            <option value="Оливье с языком">Оливье с языком</option>
-          </select>
+          <label>Ваш выбор салата</label>
+          <div class="menu-radio-group">
+            <label>
+              <input type="radio" name="Салат" value="Цезарь с курочкой">
+              <span>
+                <span class="menu-item-title">Салат «Цезарь» с курочкой на гриле</span>
+                <span class="menu-item-desc">салат ромен, бекон, заправка Цезарь с анчоусами, пармезан, черри, яйцо перепелиное, крутоны</span>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="Салат" value="Усадьба с рванной говядиной">
+              <span>
+                <span class="menu-item-title">Салат «Усадьба»</span>
+                <span class="menu-item-desc">рваная говядина, салат айсберг, томаты, обжаренная морковь, сладкий перец, красный лук, соус «Домашний майонез с соевой заправкой и кинзой»</span>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="Салат" value="Оливье с языком">
+              <span>
+                <span class="menu-item-title">Оливье с языком</span>
+                <span class="menu-item-desc">морковь, картофель, огурец соленый, капуста квашеная, горошек, яйцо отварное, майонез, язык</span>
+              </span>
+            </label>
+          </div>
         </div>
+
+        <!-- ВЫБОР ГОРЯЧЕГО БЛЮДА с радиокнопками и описанием -->
         <div class="form-group full-width" data-delay="500">
-          <label>Выбор горячего блюда</label>
-          <select name="Горячее">
-            <option value="">Выберите горячее блюдо</option>
-            <option value="Стейк из лосося">Стейк из лосося с овощами-гриль</option>
-            <option value="Говяжьи щёки">Говяжьи щёки томлёные в вине</option>
-            <option value="Эскалопы из индейки">Эскалопы из индейки по-деревенски</option>
-          </select>
+          <label>Ваш выбор основного блюда</label>
+          <div class="menu-radio-group">
+            <label>
+              <input type="radio" name="Горячее" value="Стейк из лосося">
+              <span>
+                <span class="menu-item-title">Стейк из лосося с овощами-гриль</span>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="Горячее" value="Говяжьи щёки с овощной капонатой">
+              <span>
+                <span class="menu-item-title">Говяжьи щёки томлёные в вине</span>
+                <span class="menu-item-desc">подаются с овощной капонатой</span>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="Горячее" value="Эскалопы из индейки по-деревенски">
+              <span>
+                <span class="menu-item-title">Эскалопы из индейки по-деревенски</span>
+                <span class="menu-item-desc">подаются с картофелем по-деревенски, овощным соте и сырным соусом</span>
+              </span>
+            </label>
+          </div>
         </div>
+
         <div class="form-group full-width" data-delay="600">
           <label>Аллергии и особенности питания</label>
           <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:#999;margin-bottom:6px;font-style:italic;">Есть ли у вас аллергии или ограничения по питанию, которые нам важно учесть?</p>
