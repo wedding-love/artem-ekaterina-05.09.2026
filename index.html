@@ -1046,12 +1046,16 @@
       }, { threshold: 0.5 }).observe(timeline);
     }
 
-    // ---- ДРЕСС-КОД (последовательная анимация фото) ----
+    // ---- ДРЕСС-КОД (последовательная анимация фото при прокрутке) ----
     const dressScreen = document.getElementById('dresscodeScreen');
     if (dressScreen) {
-      const drObs = new IntersectionObserver((e) => {
-        e.forEach(entry => {
-          if (entry.isIntersecting) {
+      let photosAnimated = false;
+      
+      const drObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !photosAnimated) {
+            photosAnimated = true;
+            
             document.getElementById('dresscodeMainTitle')?.classList.add('visible');
             document.getElementById('dresscodeDescription')?.classList.add('visible');
             document.getElementById('ladiesSubtitle')?.classList.add('visible');
@@ -1073,7 +1077,8 @@
             drObs.disconnect();
           }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.2 });
+      
       drObs.observe(dressScreen);
     }
 
