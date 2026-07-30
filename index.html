@@ -707,6 +707,92 @@
     }
     .submit-btn.visible { opacity: 1; transform: translateY(0); }
     .submit-btn:hover { background: #333; }
+
+    /* ----- МОДАЛЬНОЕ ОКНО ----- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      max-width: 420px;
+      width: 90%;
+      padding: 40px 32px 32px;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: slideUp 0.35s ease;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #333; }
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .modal-title {
+      font-family: 'Lighthaus', 'Quicksand', sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .modal-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .modal-btn {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 12px 40px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .modal-btn:hover { background: #333; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .success-message {
       text-align: center;
       margin-top: 20px;
@@ -724,6 +810,7 @@
     @media (max-width: 600px) { 
       .rsvp-grid { grid-template-columns: 1fr; gap: 28px; } 
       .rsvp-container { padding: 25px 18px; } 
+      .modal-box { padding: 32px 20px 28px; }
     }
     @media (max-width: 580px) { .dresscode-grid { gap: 8px; max-width: 320px; } .dresscode-grid .dress-photo { border-radius: 8px; } }
     
@@ -905,7 +992,7 @@
         <div class="form-group required full-width" data-delay="300">
           <label>Предпочтения по напиткам</label>
           <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:#999;margin-bottom:5px;font-style:italic;">Пожалуйста, выберите, какие напитки вы предпочитаете (можно выбрать несколько вариантов, так как праздник включает несколько этапов: фуршет, банкет и продолжение программы)</p>
-          <div class="checkbox-group required-checkbox">
+          <div class="checkbox-group">
             <label><input type="checkbox" name="Напитки" value="Шампанское" required> Шампанское</label>
             <label><input type="checkbox" name="Напитки" value="Белое вино" required> Белое вино</label>
             <label><input type="checkbox" name="Напитки" value="Красное вино" required> Красное вино</label>
@@ -982,7 +1069,16 @@
       </div>
       <button type="submit" class="submit-btn" id="submitBtn">Отправить ответ</button>
     </form>
-    <div id="successMessage" class="success-message">Спасибо! Ваш ответ успешно отправлен. Ждём вас на нашей свадьбе.</div>
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalCloseBtn">&times;</button>
+    <div class="modal-title">Спасибо!</div>
+    <div class="modal-text">Ваш ответ успешно отправлен.<br>Ждём вас на нашей свадьбе!</div>
+    <button class="modal-btn" id="modalConfirmBtn">Закрыть</button>
   </div>
 </div>
 
@@ -1193,9 +1289,36 @@
       });
     }
 
+    // ---- МОДАЛЬНОЕ ОКНО ----
+    const modal = document.getElementById('successModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+
+    function openModal() {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', closeModal);
+
+    // Закрытие по клику на фон
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
     // ---- ФОРМА ----
     const form = document.getElementById('guestForm');
-    const successMessage = document.getElementById('successMessage');
     if (form) {
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -1226,7 +1349,6 @@
             headers: { 'Accept': 'application/json' }
           });
           if (response.ok) {
-            successMessage.classList.add('show');
             form.reset();
             document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
             document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
@@ -1237,8 +1359,8 @@
               const otherTextInput = otherInputEl.querySelector('input');
               if (otherTextInput) otherTextInput.value = '';
             }
-            setTimeout(() => successMessage.classList.remove('show'), 5000);
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Показываем модальное окно вместо обычного сообщения
+            openModal();
           } else {
             alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
           }
@@ -1261,11 +1383,8 @@
           const otherTextInput = otherInput.querySelector('input');
           if (otherTextInput) otherTextInput.value = '';
         }
-        const successMessage = document.getElementById('successMessage');
-        if (successMessage) {
-          successMessage.classList.add('show');
-          setTimeout(() => successMessage.classList.remove('show'), 5000);
-        }
+        // Показываем модальное окно
+        setTimeout(openModal, 300);
         if (window.history && window.history.replaceState) {
           const cleanUrl = window.location.href.split('?')[0];
           window.history.replaceState({}, document.title, cleanUrl);
