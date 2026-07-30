@@ -1046,43 +1046,47 @@
       }, { threshold: 0.5 }).observe(timeline);
     }
 
-    // ---- ДРЕСС-КОД (последовательная анимация фото при прокрутке) ----
+    // ---- ДРЕСС-КОД (появляется только при прокрутке) ----
     const dressScreen = document.getElementById('dresscodeScreen');
     if (dressScreen) {
-      let photosAnimated = false;
+      let dressAnimated = false;
       
-      const drObs = new IntersectionObserver((entries) => {
+      const dressObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && !photosAnimated) {
-            photosAnimated = true;
+          if (entry.isIntersecting && !dressAnimated) {
+            dressAnimated = true;
             
+            // Сначала появляется заголовок и текст
             document.getElementById('dresscodeMainTitle')?.classList.add('visible');
-            document.getElementById('dresscodeDescription')?.classList.add('visible');
-            document.getElementById('ladiesSubtitle')?.classList.add('visible');
             
-            // Анимируем фото последовательно по data-delay
+            setTimeout(() => {
+              document.getElementById('dresscodeDescription')?.classList.add('visible');
+            }, 300);
+            
+            setTimeout(() => {
+              document.getElementById('ladiesSubtitle')?.classList.add('visible');
+            }, 600);
+            
+            // Затем по очереди фото
             const photos = document.querySelectorAll('.dress-photo');
             photos.forEach((photo) => {
               const delay = parseInt(photo.dataset.delay) || 0;
               setTimeout(() => {
                 photo.classList.add('visible-card');
-              }, delay);
+              }, 800 + delay);
             });
             
             // Заголовок Gents появляется после всех фото женщин
             setTimeout(() => {
               document.getElementById('gentsSubtitle')?.classList.add('visible');
-            }, 1700);
+            }, 2500);
             
-            drObs.disconnect();
+            dressObserver.disconnect();
           }
         });
-      }, { 
-        threshold: [0.1],
-        rootMargin: '0px 0px -100px 0px'
-      });
+      }, { threshold: 0.15 });
       
-      drObs.observe(dressScreen);
+      dressObserver.observe(dressScreen);
     }
 
     // ---- ПОЖЕЛАНИЯ ----
